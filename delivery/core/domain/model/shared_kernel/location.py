@@ -5,11 +5,11 @@ import random
 
 
 class Location(ValueObject):
-    min_location: ClassVar[int] = 1
-    max_location: ClassVar[int] = 10
+    min_point_value: ClassVar[int] = 1
+    max_point_value: ClassVar[int] = 10
 
-    X: int = Field(..., ge=min_location, le=max_location)
-    Y: int = Field(..., ge=min_location, le=max_location)
+    X: int = Field(..., ge=min_point_value, le=max_point_value)
+    Y: int = Field(..., ge=min_point_value, le=max_point_value)
 
     def distance_to(self, target_location: "Location") -> int:
         distance = abs(target_location.X - self.X) + abs(target_location.Y - self.Y)
