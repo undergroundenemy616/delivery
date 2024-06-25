@@ -15,10 +15,10 @@ class Location(ValueObject):
         distance = abs(target_location.X - self.X) + abs(target_location.Y - self.Y)
         return distance
 
-    @staticmethod
-    def create_random() -> "Location":
+    @classmethod
+    def create_random(cls) -> "Location":
         location = Location(
-            X=random.randint(1, 10),
-            Y=random.randint(1, 10)
+            X=random.randint(cls.min_point_value, cls.max_point_value),
+            Y=random.randint(cls.min_point_value, cls.max_point_value)
         )
         return location
