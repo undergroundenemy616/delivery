@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "delivery"
+version = "0.1.0"
+description = ""
+authors = ["undergroundenemy616 <undergroundenemy616@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.2.2"
+protean = "^0.12.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
