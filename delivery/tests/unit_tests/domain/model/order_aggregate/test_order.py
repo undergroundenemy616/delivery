@@ -2,6 +2,8 @@ import uuid
 
 import pytest
 
+from delivery.core.domain.model.courier_aggregate import Courier, CourierIsAlreadyBusyError
+from delivery.core.domain.model.courier_aggregate.transport import Transport
 from delivery.core.domain.model.order_aggregate import (
     Order,
     OrderIsAlreadyAssignedError,
@@ -25,26 +27,34 @@ class TestOrderShould:
 
     def test_success_assign_with_right_order_status(self) -> None:
         order = Order.create(id=uuid.uuid4(), location=Location.create_random())
-        courier_id = uuid.uuid4()
+        courier = Courier.create(name="name", location=Location.create_random(), transport=Transport.car)
 
-        order.assign(courier_id=courier_id)
+        order.assign(courier=courier)
 
-        assert order.courier_id == courier_id
+        assert order.courier_id == courier.id
         assert order.status == OrderStatus.assigned
 
     def test_error_when_assign_to_completed_order(self) -> None:
         order = Order(id=uuid.uuid4(), location=Location.create_random(), status=OrderStatus.completed)
-        courier_id = uuid.uuid4()
+        courier = Courier.create(name="name", location=Location.create_random(), transport=Transport.car)
 
         with pytest.raises(OrderIsAlreadyCompletedError):
-            order.assign(courier_id=courier_id)
+            order.assign(courier=courier)
 
     def test_error_when_assign_to_already_assigned_order(self) -> None:
         order = Order(id=uuid.uuid4(), location=Location.create_random(), status=OrderStatus.assigned)
-        courier_id = uuid.uuid4()
+        courier = Courier.create(name="name", location=Location.create_random(), transport=Transport.car)
 
         with pytest.raises(OrderIsAlreadyAssignedError):
-            order.assign(courier_id=courier_id)
+            order.assign(courier=courier)
+
+    def test_error_when_assign_to_already_busy_courier(self) -> None:
+        order = Order(id=uuid.uuid4(), location=Location.create_random(), status=OrderStatus.assigned)
+        courier = Courier.create(name="name", location=Location.create_random(), transport=Transport.car)
+        courier.set_busy()
+
+        with pytest.raises(CourierIsAlreadyBusyError):
+            order.assign(courier=courier)
 
     def test_success_complete_assigned_order(self) -> None:
         order = Order(id=uuid.uuid4(), location=Location.create_random(), status=OrderStatus.assigned)

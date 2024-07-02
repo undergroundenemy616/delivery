@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from delivery.core.domain.model.courier_aggregate import Courier, CourierIsAlreadyBusyError, CourierStatus
 from delivery.core.domain.model.order_aggregate.order_status import OrderStatus
 from delivery.core.domain.model.shared_kernel.location import Location
 from delivery.utils.ddd_primitives.aggregate import Aggregate
@@ -17,13 +18,15 @@ class Order(Aggregate):
         order = cls(id=id, location=location)
         return order
 
-    def assign(self, courier_id: UUID) -> None:
+    def assign(self, courier: Courier) -> None:
+        if courier.status == CourierStatus.busy:
+            raise CourierIsAlreadyBusyError(courier_id=courier.id)
         if self.status == OrderStatus.completed:
             raise OrderIsAlreadyCompletedError(order_id=self.id)
         if self.status == OrderStatus.assigned:
             raise OrderIsAlreadyAssignedError(order_id=self.id)
 
-        self.courier_id = courier_id
+        self.courier_id = courier.id
         self.status = OrderStatus.assigned
 
     def complete(self) -> None:
