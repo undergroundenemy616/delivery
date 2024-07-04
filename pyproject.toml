@@ -120,7 +120,6 @@ exclude = '''
   |\.pyc
   |\.pyi
   |_build
-  |delivery
   |buck-out
   |build
   |dist
