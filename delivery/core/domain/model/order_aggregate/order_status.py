@@ -10,6 +10,14 @@ class OrderStatus(ValueObject):
 
     name: str
 
+    @classmethod
+    def from_name(cls, name: str) -> "OrderStatus":
+        if name == cls.created.name:
+            return cls.created
+        if name == cls.assigned.name:
+            return cls.assigned
+        return cls.completed
+
 
 OrderStatus.created = OrderStatus(name="created")
 OrderStatus.assigned = OrderStatus(name="assigned")
