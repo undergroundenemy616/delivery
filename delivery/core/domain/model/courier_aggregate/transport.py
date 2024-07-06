@@ -1,17 +1,28 @@
 from typing import ClassVar
 
-from delivery.utils.ddd_primitives.value_object import ValueObject
+from pydantic import Field
+
+from delivery.utils.ddd_primitives.entity import Entity
 
 
-class Transport(ValueObject):
+class Transport(Entity):
     pedestrian: ClassVar["Transport"]
     bicycle: ClassVar["Transport"]
     car: ClassVar["Transport"]
 
+    id: int = Field(frozen=False)
     name: str
     speed: int
 
+    @classmethod
+    def from_name(cls, name: str) -> "Transport":
+        if name == Transport.pedestrian.name:
+            return Transport.pedestrian
+        if name == Transport.bicycle:
+            return Transport.bicycle
+        return Transport.car
 
-Transport.pedestrian = Transport(name="pedestrian", speed=1)
-Transport.bicycle = Transport(name="bicycle", speed=2)
-Transport.car = Transport(name="car", speed=3)
+
+Transport.pedestrian = Transport(id=1, name="pedestrian", speed=1)
+Transport.bicycle = Transport(id=2, name="bicycle", speed=2)
+Transport.car = Transport(id=3, name="car", speed=3)

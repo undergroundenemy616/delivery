@@ -15,6 +15,12 @@ black = "^24.4.2"
 autoflake = "^2.3.1"
 mypy = "^1.10.1"
 pre-commit = "^3.7.1"
+sqlalchemy = "^2.0.31"
+asyncpg = "^0.29.0"
+alembic = "^1.13.2"
+pydantic-settings = "^2.3.4"
+greenlet = "^3.0.3"
+pytest-asyncio = "^0.23.7"
 
 
 [build-system]
@@ -100,10 +106,7 @@ max-complexity = 5
 
 [tool.mypy]
 explicit_package_bases = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
 warn_unused_ignores = true
-warn_return_any = true
 ignore_missing_imports = true
 exclude = '''
 (

@@ -9,6 +9,12 @@ class CourierStatus(ValueObject):
 
     name: str
 
+    @classmethod
+    def from_name(cls, name: str) -> "CourierStatus":
+        if name == cls.free.name:
+            return cls.free
+        return cls.busy
+
 
 CourierStatus.free = CourierStatus(name="free")
 CourierStatus.busy = CourierStatus(name="busy")
