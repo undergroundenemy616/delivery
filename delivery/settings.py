@@ -1,5 +1,11 @@
+from enum import StrEnum, auto
+
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class StorageTypes(StrEnum):
+    postgres = auto()
 
 
 class DBSettings(BaseModel):
@@ -11,6 +17,7 @@ class DBSettings(BaseModel):
 
 class Settings(BaseSettings):
     db: DBSettings = DBSettings()
+    storage: StorageTypes = StorageTypes.postgres
 
     model_config = SettingsConfigDict(env_nested_delimiter="__")
 

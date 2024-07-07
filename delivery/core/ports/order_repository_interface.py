@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from uuid import UUID
 
 from core.domain.model.order_aggregate import Order
 
@@ -6,11 +7,15 @@ from core.domain.model.order_aggregate import Order
 class OrderRepositoryInterface:
 
     @abstractmethod
-    async def add_order(self, order: Order) -> None:
+    async def add_order(self, order_aggregate: Order) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    async def update_order(self, order: Order) -> None:
+    async def update_order(self, order_aggregate: Order) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_order_by_id(self, order_id: UUID) -> Order:
         raise NotImplementedError
 
     @abstractmethod

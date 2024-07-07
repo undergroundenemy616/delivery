@@ -3,7 +3,7 @@ import pytest
 from delivery.core.domain.model.courier_aggregate import Courier as CourierAggregate
 from delivery.core.domain.model.courier_aggregate import Transport as TransportEntity
 from delivery.core.domain.model.shared_kernel.location import Location
-from delivery.infrastracture.adapters.postgres.models import Courier, Transport
+from delivery.infrastracture.adapters.postgres.models import Transport
 from delivery.infrastracture.adapters.postgres.repositories.courier_repository import CourierRepository
 
 
@@ -25,5 +25,4 @@ async def courier(session, pedestrian_transport) -> CourierAggregate:
     )
     repository = CourierRepository(session=session)
     await repository.create_courier(courier_aggregate=courier_aggregate)
-    courier = await session.get(Courier, courier_aggregate.id)
-    return courier
+    return courier_aggregate

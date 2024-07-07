@@ -7,11 +7,11 @@ from core.domain.model.courier_aggregate import Courier
 class CourierRepositoryInterface:
 
     @abstractmethod
-    async def create_courier(self, courier: Courier) -> None:
+    async def create_courier(self, courier_aggregate: Courier) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    async def update_courier(self, courier: Courier) -> None:
+    async def update_courier(self, courier_aggregate: Courier) -> None:
         raise NotImplementedError
 
     @abstractmethod

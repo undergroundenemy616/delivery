@@ -25,7 +25,6 @@ class CourierRepository(CourierRepositoryInterface):
             transport_id=courier_aggregate.transport.id,
         )
         self.session.add(courier)
-        await self.session.commit()
 
     async def update_courier(self, courier_aggregate: CourierAggregate) -> None:
         stmt = (
@@ -44,7 +43,7 @@ class CourierRepository(CourierRepositoryInterface):
     async def get_courier_by_id(self, courier_id: UUID) -> CourierAggregate | None:
         stmt = select(Courier).options(joinedload(Courier.transport)).filter_by(id=courier_id)
         result = await self.session.execute(stmt)
-        courier = result.scalars().one_or_none()
+        courier: Courier = result.scalars().one_or_none()
         if courier:
             return courier.to_aggregate()
         return None

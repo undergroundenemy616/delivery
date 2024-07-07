@@ -23,7 +23,6 @@ class OrderRepository(OrderRepositoryInterface):
             courier_id=order_aggregate.courier_id,
         )
         self.session.add(order)
-        await self.session.commit()
 
     async def update_order(self, order_aggregate: OrderAggregate) -> None:
         stmt = (
@@ -41,7 +40,7 @@ class OrderRepository(OrderRepositoryInterface):
     async def get_order_by_id(self, order_id: UUID) -> OrderAggregate | None:
         stmt = select(Order).filter_by(id=order_id)
         result = await self.session.execute(stmt)
-        order = result.scalars().one_or_none()
+        order: Order = result.scalars().one_or_none()
         if order:
             return order.to_aggregate()
         return None
