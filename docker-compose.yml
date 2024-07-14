@@ -23,5 +23,63 @@ services:
       POSTGRES_USER: "ruby"
       POSTGRES_PASSWORD: "ruby"
 
+
+  redis:
+    image: 'bitnami/redis:latest'
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  app:
+    platform: linux/x86_64
+    build: .
+    command: ./docker-entrypoint.sh
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ./src:/app
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=delivery
+      - DB_USER=ruby
+      - DB_PASSWORD=ruby
+    env_file:
+      - src/.env
+
+
+  celery-beat:
+    platform: linux/x86_64
+    build: .
+    command: celery -A delivery.api.adapters.background_tasks.tasks.app beat -l info
+    restart: always
+    volumes:
+      - ./src:/app
+    environment:
+      - LOG_LEVEL=DEBUG
+    env_file:
+      - ./src/.env
+
+  celery-worker:
+    platform: linux/x86_64
+    build: .
+    command: celery -A delivery.api.adapters.background_tasks.tasks.app worker -l info
+    restart: always
+    volumes:
+      - ./src:/app
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=delivery
+      - DB_USER=ruby
+      - DB_PASSWORD=ruby
+      - LOG_LEVEL=DEBUG
+    env_file:
+      - ./src/.env
+
 volumes:
   db_data:
