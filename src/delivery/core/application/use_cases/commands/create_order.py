@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -10,8 +11,8 @@ from delivery.utils.uow.uow_interface import UnitOfWork
 
 
 class CreateOrderDTO(BaseModel):
-    basket_id: UUID
-    street: str
+    basket_id: UUID | None = None
+    street: str | None = None
 
 
 class CreateOrder(Command):
@@ -21,6 +22,9 @@ class CreateOrder(Command):
 
     async def __call__(self, create_order_dto: CreateOrderDTO):
         async with self.uow:
+            if not create_order_dto.basket_id:
+                create_order_dto.basket_id = uuid.uuid4()
+
             order = await self.uow.order.get_order_by_id(order_id=create_order_dto.basket_id)
             if order:
                 return

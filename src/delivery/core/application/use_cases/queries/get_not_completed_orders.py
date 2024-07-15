@@ -11,17 +11,13 @@ from delivery.utils.uow.uow_interface import UnitOfWork
 
 
 class _Location(BaseModel):
-    X: int
-    Y: int
-
-
-class _Order(BaseModel):
-    id: UUID
-    location: _Location
+    x: int
+    y: int
 
 
 class GetNotCompletedOrdersOutputDTO(BaseModel):
-    orders: list[_Order]
+    id: UUID
+    location: _Location
 
 
 class GetNotCompletedOrders(Query):
@@ -39,12 +35,12 @@ class GetNotCompletedOrders(Query):
             return self.construct_dto(orders)
 
     @staticmethod
-    def construct_dto(orders: list[Order]) -> GetNotCompletedOrdersOutputDTO:
+    def construct_dto(orders: list[Order]) -> list[GetNotCompletedOrdersOutputDTO]:
         orders = [
-            _Order(
+            GetNotCompletedOrdersOutputDTO(
                 id=order.id,
-                location=_Location(X=order.location_x, Y=order.location_y),
+                location=_Location(x=order.location_x, y=order.location_y),
             )
             for order in orders
         ]
-        return GetNotCompletedOrdersOutputDTO(orders=orders)
+        return orders

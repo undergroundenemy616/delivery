@@ -11,19 +11,15 @@ from delivery.utils.uow.uow_interface import UnitOfWork
 
 
 class _Location(BaseModel):
-    X: int
-    Y: int
+    x: int
+    y: int
 
 
-class _Courier(BaseModel):
+class GetBusyCouriersOutputDTO(BaseModel):
     id: UUID
     name: str
     location: _Location
     transport_id: int
-
-
-class GetBusyCouriersOutputDTO(BaseModel):
-    couriers: list[_Courier]
 
 
 class GetBusyCouriers(Query):
@@ -39,14 +35,14 @@ class GetBusyCouriers(Query):
             return self.construct_dto(couriers)
 
     @staticmethod
-    def construct_dto(couriers: list[Courier]) -> GetBusyCouriersOutputDTO:
+    def construct_dto(couriers: list[Courier]) -> list[GetBusyCouriersOutputDTO]:
         couriers = [
-            _Courier(
+            GetBusyCouriersOutputDTO(
                 id=courier.id,
                 name=courier.name,
-                location=_Location(X=courier.location_x, Y=courier.location_y),
+                location=_Location(x=courier.location_x, y=courier.location_y),
                 transport_id=courier.transport_id,
             )
             for courier in couriers
         ]
-        return GetBusyCouriersOutputDTO(couriers=couriers)
+        return couriers
