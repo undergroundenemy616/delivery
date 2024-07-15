@@ -28,4 +28,4 @@ class TestGetBusyCouriersQueryShould:
 
         busy_couriers = await GetBusyCouriers()()
 
-        assert len(busy_couriers.couriers) == 2
+        assert len(busy_couriers) == 2
