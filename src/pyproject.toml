@@ -25,6 +25,8 @@ fastapi = "^0.111.0"
 redis = "^5.0.7"
 celery = "^5.4.0"
 punq = "^0.7.0"
+grpcio = "^1.64.1"
+grpcio-tools = "^1.64.1"
 
 
 [build-system]
@@ -101,6 +103,7 @@ exclude = [
     "build",
     "dist",
     "migrations",
+    "proto",
 ]
 
 [tool.ruff.lint.mccabe]
