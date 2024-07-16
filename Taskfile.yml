@@ -3,8 +3,8 @@ version: '3'
 tasks:
   lint:
     cmds:
-      - isort delivery
-      - autoflake --in-place -r delivery
-      - black delivery
-      - ruff check delivery --fix
-      - mypy --config-file=pyproject.toml delivery
+      - isort src/delivery
+      - autoflake --in-place -r src/delivery
+      - black src/delivery
+      - ruff check src/delivery --fix
+      - mypy --config-file=src/pyproject.toml src/delivery
