@@ -7,7 +7,7 @@ from delivery.core.domain.model.courier_aggregate import Transport as TransportE
 from delivery.core.domain.model.order_aggregate import Order as OrderAggregate
 from delivery.core.domain.model.order_aggregate import OrderStatus
 from delivery.core.domain.model.shared_kernel.location import Location
-from delivery.utils.uow.uow_interface import UnitOfWork
+from delivery.core.ports.uow_interface import UnitOfWork
 
 
 class TestAssignOrderCommandShould:

@@ -2,7 +2,7 @@ from collections.abc import Callable
 
 from delivery.infrastracture.adapters.postgres.repositories.courier_repository import CourierRepository
 from delivery.infrastracture.adapters.postgres.repositories.order_repository import OrderRepository
-from delivery.utils.uow.uow_interface import UnitOfWork
+from delivery.core.ports.uow_interface import UnitOfWork
 
 
 class SqlAlchemyUnitOfWork(UnitOfWork):

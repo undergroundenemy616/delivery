@@ -7,7 +7,7 @@ from delivery.config.dependencies import get_container
 from delivery.core.domain.model.order_aggregate import Order
 from delivery.core.ports.geo_service_client import GeoServiceClientInterface
 from delivery.utils.application_primitives import Command
-from delivery.utils.uow.uow_interface import UnitOfWork
+from delivery.core.ports.uow_interface import UnitOfWork
 
 
 class CreateOrderDTO(BaseModel):
@@ -25,6 +25,9 @@ class CreateOrder(Command):
         async with self.uow:
             if not create_order_dto.basket_id:
                 create_order_dto.basket_id = uuid.uuid4()
+
+            if not create_order_dto.street:
+                create_order_dto.street = "fuck"
 
             order = await self.uow.order.get_order_by_id(order_id=create_order_dto.basket_id)
             if order:

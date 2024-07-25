@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
 from delivery.config import settings
 from delivery.infrastracture.adapters.postgres.models import Base
-from delivery.utils.uow.uow_interface import UnitOfWork
+from delivery.core.ports.uow_interface import UnitOfWork
 
 
 global_engine = None

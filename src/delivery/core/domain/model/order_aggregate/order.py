@@ -1,6 +1,7 @@
-from uuid import UUID
 
+from uuid import UUID
 from delivery.core.domain.model.courier_aggregate import Courier, CourierIsAlreadyBusyError, CourierStatus
+from delivery.core.domain.model.order_aggregate.domain_events.order_completed_event import OrderCompletedDomainEvent
 from delivery.core.domain.model.order_aggregate.order_status import OrderStatus
 from delivery.core.domain.model.shared_kernel.location import Location
 from delivery.utils.ddd_primitives.aggregate import Aggregate
@@ -33,6 +34,12 @@ class Order(Aggregate):
         if self.status != OrderStatus.assigned:
             raise OrderIsNotAssignedError(order_id=self.id)
         self.status = OrderStatus.completed
+
+        self.add_domain_event(
+            domain_event=OrderCompletedDomainEvent(
+                order_id=self.id,
+            )
+        )
 
 
 class OrderIsNotAssignedError(CodeExceptionError):

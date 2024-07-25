@@ -4,11 +4,13 @@ from .background_jobs_delays import BackGroundJobsDelays
 from .database import DBSettings
 from .enums import Stand, StorageTypes
 from .geo_service import GeoServiceSettings
+from .kafka import KafkaSettings
 from .logger import LoggingSettings
 
 
 class Settings(BaseSettings):
     geo_service: GeoServiceSettings = GeoServiceSettings()
+    kafka: KafkaSettings = KafkaSettings()
     db: DBSettings = DBSettings()
     redis_url: str = "redis://redis:6379"
     storage: StorageTypes = StorageTypes.postgres
