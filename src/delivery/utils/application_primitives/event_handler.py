@@ -8,6 +8,3 @@ class Handler:
     @abstractmethod
     async def __call__(self, domain_event: DomainEvent):
         raise NotImplementedError
-
-
-

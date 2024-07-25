@@ -11,4 +11,3 @@ class OrderCompletedDomainEventHandler(Handler):
 
     async def __call__(self, domain_event: OrderCompletedDomainEvent) -> None:
         await self.bus_producer.publish_order_completed_event(order_completed_event=domain_event)
-

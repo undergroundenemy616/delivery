@@ -1,8 +1,8 @@
 import logging
 
 from delivery.config.dependencies import get_container
-from delivery.utils.application_primitives import Command
 from delivery.core.ports.uow_interface import UnitOfWork
+from delivery.utils.application_primitives import Command
 
 
 logger = logging.getLogger(__name__)

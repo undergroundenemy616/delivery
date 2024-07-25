@@ -5,11 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from delivery.core.ports.bus_producer_interface import BusProducerInterface
 from delivery.core.ports.geo_service_client import GeoServiceClientInterface
+from delivery.core.ports.uow_interface import UnitOfWork
 from delivery.infrastracture.adapters.grpc.geo.client import GeoServiceClientGRPC
 from delivery.infrastracture.adapters.kafka.producer import KafkaBusProducer
 from delivery.infrastracture.adapters.postgres.database import get_session
 from delivery.infrastracture.adapters.postgres.repositories.uow import SqlAlchemyUnitOfWork
-from delivery.core.ports.uow_interface import UnitOfWork
 
 
 @lru_cache(1)

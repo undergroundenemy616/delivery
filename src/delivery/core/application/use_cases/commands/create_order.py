@@ -6,8 +6,8 @@ from pydantic import BaseModel
 from delivery.config.dependencies import get_container
 from delivery.core.domain.model.order_aggregate import Order
 from delivery.core.ports.geo_service_client import GeoServiceClientInterface
-from delivery.utils.application_primitives import Command
 from delivery.core.ports.uow_interface import UnitOfWork
+from delivery.utils.application_primitives import Command
 
 
 class CreateOrderDTO(BaseModel):

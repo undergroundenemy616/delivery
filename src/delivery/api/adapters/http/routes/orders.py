@@ -31,7 +31,7 @@ async def create_order(create_order_dto: CreateOrderDTO | None = Body(default_fa
         CourierIsAlreadyBusyError,
         OrderIsAlreadyCompletedError,
         OrderIsAlreadyAssignedError,
-        OrderIsNotAssignedError
+        OrderIsNotAssignedError,
     ) as err:
         return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 

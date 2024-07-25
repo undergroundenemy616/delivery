@@ -5,9 +5,9 @@ from sqlalchemy import or_, select
 
 from delivery.config.dependencies import get_container
 from delivery.core.domain.model.order_aggregate import OrderStatus
+from delivery.core.ports.uow_interface import UnitOfWork
 from delivery.infrastracture.adapters.postgres.models import Order
 from delivery.utils.application_primitives import Query
-from delivery.core.ports.uow_interface import UnitOfWork
 
 
 class _Location(BaseModel):

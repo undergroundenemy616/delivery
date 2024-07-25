@@ -1,5 +1,5 @@
-
 from uuid import UUID
+
 from delivery.core.domain.model.courier_aggregate import Courier, CourierIsAlreadyBusyError, CourierStatus
 from delivery.core.domain.model.order_aggregate.domain_events.order_completed_event import OrderCompletedDomainEvent
 from delivery.core.domain.model.order_aggregate.order_status import OrderStatus
