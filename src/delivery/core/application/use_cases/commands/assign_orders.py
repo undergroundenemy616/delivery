@@ -1,7 +1,7 @@
 from delivery.config.dependencies import get_container
 from delivery.core.domain.services.find_courier_for_order import FindCourierForOrder
+from delivery.core.ports.uow_interface import UnitOfWork
 from delivery.utils.application_primitives import Command
-from delivery.utils.uow.uow_interface import UnitOfWork
 
 
 class AssignOrders(Command):

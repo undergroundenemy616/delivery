@@ -1,8 +1,8 @@
 import logging
 
 from delivery.config.dependencies import get_container
+from delivery.core.ports.uow_interface import UnitOfWork
 from delivery.utils.application_primitives import Command
-from delivery.utils.uow.uow_interface import UnitOfWork
 
 
 logger = logging.getLogger(__name__)
@@ -29,3 +29,4 @@ class MoveCouriers(Command):
                 await self.uow.order.update_order(order_aggregate=order)
                 await self.uow.courier.update_courier(courier_aggregate=courier)
                 await self.uow.commit()
+                await self.publish_domain_events(aggregates=[order, courier])

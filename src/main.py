@@ -22,7 +22,7 @@ def ping_handler() -> dict:
 def get_uvicorn_params():
     base = {"host": "::"}
     if settings.stand == Stand.local:
-        return {**base, "port": 8000, "reload": True}
+        return {**base, "port": 8082, "reload": True}
     return {**base, "port": 80}
 
 
